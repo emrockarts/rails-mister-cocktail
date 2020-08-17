@@ -9,15 +9,3 @@
 # Ingredient.create(name: 'ice')
 # Ingredient.create(name: 'mint leaves')
 
-require 'json'
-require 'open-uri'
-Ingredient.destroy_all
-
-url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
-serialized_items = open(url).read
-ingredients = JSON.parse(serialized_items)
-
-ingredients["drinks"].each do |ingredient|
-  item = ingredient["strIngredient1"]
-  Ingredient.create(name: item)
-end
